@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Day and Time</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .time-display {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Current Day and Time</h2>
+    <div class="time-display" id="timeDisplay"></div>
+
+    <script>
+        function displayCurrentDayAndTime() {
+            const now = new Date();
+            
+            // Array for days of the week
+            const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            
+            // Get current day of the week
+            const currentDay = daysOfWeek[now.getDay()];
+            
+            // Get the current hour, minute, and second
+            let hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            
+            // Determine AM/PM
+            let amPm = "AM";
+            if (hours >= 12) {
+                amPm = "PM";
+            }
+            
+            // Convert 24-hour time to 12-hour format
+            if (hours > 12) {
+                hours = hours - 12;
+            } else if (hours === 0) {
+                hours = 12;  // Midnight case
+            }
+
+            // Special cases for Noon and Midnight
+            if (now.getHours() === 12 && minutes === 0 && seconds === 0) {
+                amPm = "Noon";
+            } else if (now.getHours() === 0 && minutes === 0 && seconds === 0) {
+                amPm = "Midnight";
+            }
+
+            // Format minutes and seconds to always display two digits
+            const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+            const formattedSeconds = seconds < 10 ? "0" + seconds : seconds;
+
+            // Create the final string to display
+            const currentTime = `Today is : ${currentDay}.<br>
+                                 Current time is : ${hours} ${amPm !== "Noon" && amPm !== "Midnight" ? amPm : ""} : ${formattedMinutes} : ${formattedSeconds} ${amPm}`;
+            
+            // Display the result in the HTML element
+            document.getElementById("timeDisplay").innerHTML = currentTime;
+        }
+
+        // Call the function to display the current time
+        displayCurrentDayAndTime();
+
+        // Update the time every second
+        setInterval(displayCurrentDayAndTime, 1000);
+    </script>
+
+</body>
+</html>
