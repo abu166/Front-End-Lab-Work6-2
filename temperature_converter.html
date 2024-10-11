@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Temperature Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input, select, button {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 1em;
+            width: 100%;
+            max-width: 300px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Temperature Converter</h2>
+
+    <input type="number" id="inputTemp" placeholder="Enter temperature">
+    <select id="scale">
+        <option value="celsius">Celsius to Fahrenheit</option>
+        <option value="fahrenheit">Fahrenheit to Celsius</option>
+    </select>
+    <button onclick="convertTemperature()">Convert</button>
+    
+    <div class="result" id="result"></div>
+
+    <script>
+        function convertTemperature() {
+            const temp = document.getElementById("inputTemp").value;
+            const scale = document.getElementById("scale").value;
+            let result = "";
+
+            if (isNaN(temp) || temp === "") {
+                result = "Please enter a valid temperature!";
+            } else {
+                if (scale === "celsius") {
+                    result = (temp * 9/5) + 32 + " °F";
+                } else if (scale === "fahrenheit") {
+                    result = (temp - 32) * 5/9 + " °C";
+                }
+            }
+            document.getElementById("result").innerText = result;
+        }
+    </script>
+
+</body>
+</html>
